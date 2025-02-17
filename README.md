@@ -12,7 +12,7 @@ It uses `pg_upgrade` binary from PostgreSQL docker image to upgrade.
 
 It should work for any database version compliant with `pg_uprgade`
 
-:+1: Tested from 9.3+ to [10-14] and more
+:+1: Tested from 9.3+ to [10-17]
 
 :warning: `pg_upgrade` is not able to downgrade
 
@@ -45,7 +45,7 @@ The source (old) folder should contain database to migrate. (See example below)
 Variables:
 
 * PGUSER (default postgres)
-* POSTGRES_NEW (default 14)
+* POSTGRES_NEW (default 17)
 * DB_INIT (default true)
 
 ### Example
