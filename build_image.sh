@@ -30,7 +30,7 @@ if [ ${_PUSH=} = 0 ]; then
    echo "Deleting docker images..."
    docker rmi johann8/postgresql-upgrade:latest-debian
    #docker images -a
-   docker johann8/postgresql-upgrade:${_VERSION}-debian
+   docker rmi johann8/postgresql-upgrade:${_VERSION}-debian
    #docker images -a
    #docker rmi ubuntu
    docker images -a
