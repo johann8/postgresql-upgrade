@@ -1,10 +1,8 @@
 <h1 align="center">Docker - PostgreSQL DB upgrade</h1>
 
-# postgresql-upgrade
-
 ## About
 
-Upgrade PostgreSQL database into another database using a simple `docker run`
+Upgrade PostgreSQL database into another database.
 
 ## Overview
 
@@ -12,7 +10,7 @@ It uses `pg_upgrade` binary from PostgreSQL docker image to upgrade.
 
 It should work for any database version compliant with `pg_uprgade`
 
-:+1: Tested from 9.3+ to [10-17]
+:+1: Tested from 16.0+ to [17]
 
 :warning: `pg_upgrade` is not able to downgrade
 
@@ -51,7 +49,7 @@ Variables:
 ### Example
 
 Let's say our source database is located in "/data/pg-old" and the target one
-built in "/data/pg-new". Upgrade to PostgreSQL v13 with "postgres" as
+built in "/data/pg-new". Upgrade to PostgreSQL v17 with "postgres" as
 a superuser.
 
 ```bash
@@ -60,10 +58,10 @@ docker run -t -i \
   -e PGUSER=postgres \
   -v /data/pg-old:/pg_old/data \
   -v /data/pg-new:/pg_new/data \
-  johann8/postgresql-upgrade
+  johann8/postgresql-upgrade:latest-debian
 ```
 
-`:/pg_old/data` ad `:/pg_new/data` should not be modified.
+`:/pg_old/data` and `:/pg_new/data` should not be modified.
 
 ## Build
 
@@ -97,7 +95,7 @@ docker run -t -i \
   -e PGUSER=postgres \
   -v /data/pg-old:/pg_old/data \
   -v /data/pg-new:/pg_new/data \
-  johann8/postgresql-upgrade \
+  johann8/postgresql-upgrade:latest-debian \
   /bin/bash
 ```
 
