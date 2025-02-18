@@ -1,7 +1,7 @@
 # PostgreSQL upgrade image
 FROM postgres:17-bookworm
 
-LABEL maintainer="jhahn@○localhost"
+LABEL maintainer="jhahn@localhost"
 
 ARG POSTGRES_NEW
 
