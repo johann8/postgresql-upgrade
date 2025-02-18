@@ -50,14 +50,17 @@ if [ "$(id -u)" = '0' ] ;then
    chmod 700 "$PGDATANEW"
    chown -R postgres "$PGDATAOLD" "$PGDATANEW"
    chown postgres .
-#   exec gosu postgres "$BASH_SOURCE" "$@"
 
-   # become user postgres for works with Postgres
-   exec gosu postgres bash
+   # restart script as postgres user
+   echo -e ""
+   echo "Restart script as postgres user."
+   exec gosu postgres "$BASH_SOURCE" "$@"
 fi
 
 # Collect information from POSTGRES_OLD
 # Start DB POSTGRES_OLD
+echo -e ""
+echo "Start old postgres server."
 eval "${PGBINOLD}/pg_ctl -D ${PGDATAOLD} -l logfile start"
 
 # Wait 3 sec for init
@@ -73,18 +76,24 @@ ENCODING=$(eval "${PGBINOLD}/psql -t $PGUSER -c 'SHOW SERVER_ENCODING'")
 export ENCODING=$(echo ${ENCODING}| xargs)
 
 # Stop DB POSTGRES_OLD
+echo -e ""
+echo "Stop old postgres server."
 eval "${PGBINOLD}/pg_ctl -D ${PGDATAOLD} -l logfile stop"
 
 # Init DB POSTGRES_NEW  
 if [ "${DB_INIT}" == 'true' ]; then
    ENCODING="${ENCODING:=SQL_ASCII}"
    LOCALE="${LOCALE:=en_US.utf8}"
+   echo -e ""
+   echo "Init new postgres server"
    eval "${PGBINNEW}/initdb --username=${PGUSER} --pgdata=${PGDATANEW} --encoding=${ENCODING} --lc-collate=${LOCALE} --lc-ctype=${LOCALE}"
 fi
 
 # run pg_upgrade or launch CMD
 if [ "$1" = 'pg_upgrade' ] ;then
    # Upgrade DB POSTGRES_OLD into POSTGRES_NEW
+   echo -e ""
+   echo "Upgrade pld postgres DB to new postgres db version"
    eval "/usr/lib/postgresql/${POSTGRES_NEW}/bin/pg_upgrade"
 else
    exec "$@"
