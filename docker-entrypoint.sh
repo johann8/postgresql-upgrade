@@ -47,7 +47,7 @@ if [ "$(id -u)" = '0' ] ;then
 
 #   mkdir -p "$PGDATAOLD" "$PGDATANEW"
 #   chmod 700 "$PGDATAOLD" "$PGDATANEW"
-   chmod 700 "$PGDATANEW"
+   chmod 700 "$PGDATANEW" "$PGDATAOLD"
    chown -R postgres "$PGDATAOLD" "$PGDATANEW"
    chown postgres .
 
